@@ -8,6 +8,7 @@ from .prefixspan import PrefixSpan
 from .closed import isclosed, canclosedprune
 from .generator import isgenerator, cangeneratorprune
 
+
 def PrefixSpan_frequent(
         self, minsup, closed=False, generator=False,
         key=None, bound=None,
@@ -42,7 +43,8 @@ def PrefixSpan_frequent(
         # type: (Pattern, Matches) -> None
         if len(patt) >= self.minlen:
             verify(patt, matches)
-
+            for m in matches:
+                self.sentences[m[0]].append(patt)
             if len(patt) == self.maxlen:
                 return
 
@@ -68,5 +70,4 @@ def PrefixSpan_frequent(
         key = bound = PrefixSpan.defaultkey
 
     results = self._mine(frequent_rec)
-
     return None if callback else results

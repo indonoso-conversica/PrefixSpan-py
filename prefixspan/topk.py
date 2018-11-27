@@ -41,7 +41,8 @@ def PrefixSpan_topk(
         # type: (Pattern, Matches) -> None
         if len(patt) >= self.minlen:
             verify(patt, matches)
-
+            for m in matches:
+                self.sentences[m[0]].append(patt)
             if len(patt) == self.maxlen:
                 return
 

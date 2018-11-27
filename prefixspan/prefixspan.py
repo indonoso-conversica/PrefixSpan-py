@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 from .localtyping import *
+from collections import defaultdict
 
 class PrefixSpan(object):
     def __init__(self, db):
@@ -11,10 +12,13 @@ class PrefixSpan(object):
 
         self._results = [] # type: Any
 
+        self.sentences = defaultdict(list)
+
 
     def _mine(self, func):
         # type: (Callable[[Pattern, Matches], None]) -> Any
         self._results.clear()
+        self.sentences = defaultdict(list)
 
         func([], [(i, -1) for i in range(len(self._db))])
 
